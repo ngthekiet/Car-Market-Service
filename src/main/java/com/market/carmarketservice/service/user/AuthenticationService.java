@@ -1,4 +1,4 @@
-package com.market.carmarketservice.service;
+package com.market.carmarketservice.service.user;
 
 import com.market.carmarketservice.auth.AuthenticationRequest;
 import com.market.carmarketservice.auth.AuthenticationResponse;
@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService {
     private final UserRepository repository;
     private final JwtService jwtService;
-
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {

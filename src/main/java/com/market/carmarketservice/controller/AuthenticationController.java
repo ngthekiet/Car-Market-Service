@@ -3,8 +3,11 @@ package com.market.carmarketservice.controller;
 import com.market.carmarketservice.auth.AuthenticationRequest;
 import com.market.carmarketservice.auth.AuthenticationResponse;
 import com.market.carmarketservice.auth.RegisterRequest;
-import com.market.carmarketservice.service.AuthenticationService;
+import com.market.carmarketservice.exception.UserIsExistException;
+import com.market.carmarketservice.service.user.AuthenticationService;
+import com.market.carmarketservice.service.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,13 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final AuthenticationService service;
-
-    @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(
-            @RequestBody RegisterRequest request
-    ) {
-        return ResponseEntity.ok(service.register(request));
-    }
+    private final UserService userService;
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
