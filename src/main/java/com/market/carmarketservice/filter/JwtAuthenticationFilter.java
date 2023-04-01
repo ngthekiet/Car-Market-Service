@@ -1,5 +1,6 @@
-package com.market.carmarketservice.config;
+package com.market.carmarketservice.filter;
 
+import com.market.carmarketservice.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

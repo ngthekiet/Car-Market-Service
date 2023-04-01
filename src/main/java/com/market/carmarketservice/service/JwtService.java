@@ -1,4 +1,4 @@
-package com.market.carmarketservice.config;
+package com.market.carmarketservice.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

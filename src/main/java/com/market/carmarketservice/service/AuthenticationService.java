@@ -1,6 +1,9 @@
-package com.market.carmarketservice.auth;
+package com.market.carmarketservice.service;
 
-import com.market.carmarketservice.config.JwtService;
+import com.market.carmarketservice.auth.AuthenticationRequest;
+import com.market.carmarketservice.auth.AuthenticationResponse;
+import com.market.carmarketservice.auth.RegisterRequest;
+import com.market.carmarketservice.service.JwtService;
 import com.market.carmarketservice.user.Role;
 import com.market.carmarketservice.user.User;
 import com.market.carmarketservice.user.UserRepository;

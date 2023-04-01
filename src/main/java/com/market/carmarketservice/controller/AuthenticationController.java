@@ -1,5 +1,9 @@
-package com.market.carmarketservice.auth;
+package com.market.carmarketservice.controller;
 
+import com.market.carmarketservice.auth.AuthenticationRequest;
+import com.market.carmarketservice.auth.AuthenticationResponse;
+import com.market.carmarketservice.auth.RegisterRequest;
+import com.market.carmarketservice.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
