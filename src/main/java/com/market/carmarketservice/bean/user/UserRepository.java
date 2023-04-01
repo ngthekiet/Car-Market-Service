@@ -1,4 +1,4 @@
-package com.market.carmarketservice.user;
+package com.market.carmarketservice.bean.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

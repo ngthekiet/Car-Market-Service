@@ -1,8 +1,7 @@
 package com.market.carmarketservice.service.user;
 
-import com.market.carmarketservice.user.User;
-import com.market.carmarketservice.user.UserRepository;
-import lombok.RequiredArgsConstructor;
+import com.market.carmarketservice.bean.user.User;
+import com.market.carmarketservice.bean.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

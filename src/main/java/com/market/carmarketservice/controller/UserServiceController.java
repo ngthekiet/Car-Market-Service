@@ -5,7 +5,7 @@ import com.market.carmarketservice.auth.AuthenticationResponse;
 import com.market.carmarketservice.auth.RegisterRequest;
 import com.market.carmarketservice.exception.UserNotfoundException;
 import com.market.carmarketservice.service.user.AuthenticationService;
-import com.market.carmarketservice.user.User;
+import com.market.carmarketservice.bean.user.User;
 import com.market.carmarketservice.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
