@@ -1,5 +1,6 @@
 package com.market.carmarketservice.controller.exception;
 
+import com.market.carmarketservice.exception.LinkNotFoundException;
 import com.market.carmarketservice.exception.UserIsExistException;
 import com.market.carmarketservice.exception.UserNotfoundException;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,12 @@ public class UserExceptionController {
     }
 
     @ExceptionHandler(value = UserIsExistException.class)
-    public ResponseEntity<Object> userIsExist(UserNotfoundException exception) {
+    public ResponseEntity<Object> userIsExist(UserIsExistException exception) {
         return new ResponseEntity<>("User is exist", HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = LinkNotFoundException.class)
+    public ResponseEntity<Object> linkNotFound(LinkNotFoundException exception) {
+        return new ResponseEntity<>("Link not found", HttpStatus.NOT_FOUND);
     }
 }
