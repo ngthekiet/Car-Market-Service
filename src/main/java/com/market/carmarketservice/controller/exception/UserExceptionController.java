@@ -19,9 +19,4 @@ public class UserExceptionController {
     public ResponseEntity<Object> userIsExist(UserIsExistException exception) {
         return new ResponseEntity<>("User is exist", HttpStatus.NOT_FOUND);
     }
-
-    @ExceptionHandler(value = LinkNotFoundException.class)
-    public ResponseEntity<Object> linkNotFound(LinkNotFoundException exception) {
-        return new ResponseEntity<>("Link not found", HttpStatus.NOT_FOUND);
-    }
 }

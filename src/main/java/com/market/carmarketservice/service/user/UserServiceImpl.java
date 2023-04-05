@@ -14,15 +14,27 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public void updateUser(User user) {
-        userRepository.save(user);
+    public boolean updateUser(User user, int id) {
+        Optional<User> userOld = userRepository.findById(id);
+        if (isUser(id)) {
+            user.setId(id);
+            user.setUsername(userOld.get().getUsername());
+            user.setPassword(userOld.get().getPassword());
+            user.setRole(userOld.get().getRole());
+            userRepository.save(user);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public User getUser(int id) {
-        Optional<User> optional = userRepository.findById(id);
-        User user = optional.get();
-        return user;
+        if (isUser(id)) {
+            Optional<User> optional = userRepository.findById(id);
+            User user = optional.get();
+            return user;
+        }
+        return null;
     }
 
     @Override
@@ -31,8 +43,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(int id) {
-        userRepository.deleteById(id);
+    public boolean deleteUser(int id) {
+        if (isUser(id)) {
+            userRepository.deleteById(id);
+            return true;
+        }
+        return false;
+
     }
 
     @Override
