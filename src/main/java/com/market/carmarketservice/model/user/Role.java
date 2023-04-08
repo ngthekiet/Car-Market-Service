@@ -1,4 +1,4 @@
-package com.market.carmarketservice.bean.user;
+package com.market.carmarketservice.model.user;
 
 public enum Role {
     USER,

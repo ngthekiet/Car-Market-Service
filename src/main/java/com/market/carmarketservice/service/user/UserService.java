@@ -1,15 +1,15 @@
 package com.market.carmarketservice.service.user;
 
-import com.market.carmarketservice.bean.user.User;
+import com.market.carmarketservice.model.user.Users;
 
 import java.util.List;
 
 public interface UserService {
-    public abstract boolean updateUser(User user, int id);
+    public abstract List<Users> getUsers();
 
-    public abstract User getUser(int id);
+    public abstract Users getUser(int id);
 
-    public abstract List<User> getUsers();
+    public abstract boolean updateUser(Users user, int id);
 
     public abstract boolean deleteUser(int id);
 
