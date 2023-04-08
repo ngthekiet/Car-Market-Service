@@ -1,7 +1,7 @@
 package com.market.carmarketservice.service.user;
 
-import com.market.carmarketservice.bean.user.User;
-import com.market.carmarketservice.bean.user.UserRepository;
+import com.market.carmarketservice.model.user.Users;
+import com.market.carmarketservice.model.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +14,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public boolean updateUser(User user, int id) {
-        Optional<User> userOld = userRepository.findById(id);
+    public boolean updateUser(Users user, int id) {
+        Optional<Users> userOld = userRepository.findById(id);
         if (isUser(id)) {
             user.setId(id);
             user.setUsername(userOld.get().getUsername());
@@ -28,18 +28,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(int id) {
+    public Users getUser(int id) {
         if (isUser(id)) {
-            Optional<User> optional = userRepository.findById(id);
-            User user = optional.get();
+            Optional<Users> optional = userRepository.findById(id);
+            Users user = optional.get();
             return user;
         }
         return null;
     }
 
     @Override
-    public List<User> getUsers() {
-        return (List<User>) userRepository.findAll();
+    public List<Users> getUsers() {
+        return (List<Users>) userRepository.findAll();
     }
 
     @Override

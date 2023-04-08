@@ -1,6 +1,6 @@
 package com.market.carmarketservice.config;
 
-import com.market.carmarketservice.bean.user.UserRepository;
+import com.market.carmarketservice.model.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

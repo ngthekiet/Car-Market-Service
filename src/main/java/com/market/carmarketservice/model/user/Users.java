@@ -1,5 +1,6 @@
-package com.market.carmarketservice.bean.user;
+package com.market.carmarketservice.model.user;
 
+import com.market.carmarketservice.model.user.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,10 +18,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user")
-public class User implements UserDetails {
+@Table(name = "users")
+public class Users implements UserDetails {
     @Id
-    @GeneratedValue
+    @GeneratedValue()
     private Integer id;
 
     private String firstname;
@@ -29,7 +30,7 @@ public class User implements UserDetails {
     private String address;
     private String phone;
     private String avatar;
-    private int birthyear;
+    private Integer birthyear;
     private String username;
     private String password;
 
