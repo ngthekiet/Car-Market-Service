@@ -1,7 +1,7 @@
 package com.market.carmarketservice.service.product;
 
 import com.market.carmarketservice.model.product.ProductRepository;
-import com.market.carmarketservice.model.product.Products;
+import com.market.carmarketservice.model.product.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,28 +14,28 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
-    public List<Products> getProducts() {
-        return (List<Products>) productRepository.findAll();
+    public List<Product> getProducts() {
+        return (List<Product>) productRepository.findAll();
     }
 
     @Override
-    public Products getProduct(int id) {
+    public Product getProduct(int id) {
         if (existProduct(id)) {
-            Optional<Products> optional = productRepository.findById(id);
-            Products product = optional.get();
+            Optional<Product> optional = productRepository.findById(id);
+            Product product = optional.get();
             return product;
         }
         return null;
     }
 
     @Override
-    public boolean createProduct(Products products) {
+    public boolean createProduct(Product other) {
         try {
-            var product = Products.builder()
-                    .name(products.getName())
-                    .image(products.getImage())
-                    .price(products.getPrice())
-                    .categories(products.getCategories())
+            var product = Product.builder()
+                    .name(other.getName())
+                    .image(other.getImage())
+                    .price(other.getPrice())
+                    .category(other.getCategory())
                     .build();
             productRepository.save(product);
             return true;
@@ -45,10 +45,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean updateProduct(Products products, int id) {
+    public boolean updateProduct(Product product, int id) {
         if (existProduct(id)) {
-            products.setId(id);
-            productRepository.save(products);
+            product.setId(id);
+            productRepository.save(product);
             return true;
         }
         return false;

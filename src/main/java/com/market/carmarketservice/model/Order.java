@@ -1,6 +1,6 @@
-package com.market.carmarketservice.model.product;
+package com.market.carmarketservice.model;
 
-import com.market.carmarketservice.model.Categories;
+import com.market.carmarketservice.model.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,14 +12,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "products")
-public class Products {
+@Table(name = "orders")
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String name;
-    private String image;
-    private Integer price;
     @ManyToOne
-    private Categories categories;
+    private User user;
+    private String status;
 }

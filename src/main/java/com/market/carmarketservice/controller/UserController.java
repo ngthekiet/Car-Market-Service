@@ -5,7 +5,7 @@ import com.market.carmarketservice.auth.AuthenticationResponse;
 import com.market.carmarketservice.auth.RegisterRequest;
 import com.market.carmarketservice.service.message.MessageService;
 import com.market.carmarketservice.service.user.AuthenticationService;
-import com.market.carmarketservice.model.user.Users;
+import com.market.carmarketservice.model.user.User;
 import com.market.carmarketservice.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,7 +26,7 @@ public class UserController {
         try {
             return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(messageService.userNotFound(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(messageService.notFound(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -34,8 +34,7 @@ public class UserController {
     public ResponseEntity<Object> getUser(@PathVariable("id") int id) {
         if (userService.getUser(id) != null)
             return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
-        else
-            return new ResponseEntity<>(messageService.userNotFound(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(messageService.notFound(), HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/register")
@@ -55,19 +54,17 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateUser(@PathVariable("id") int id, @RequestBody Users user) {
+    public ResponseEntity<Object> updateUser(@PathVariable("id") int id, @RequestBody User user) {
         if (userService.updateUser(user, id))
-            return new ResponseEntity<>(messageService.updateUserSuccesses(), HttpStatus.OK);
-        else
-            return new ResponseEntity<>(messageService.updateUserFail(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(messageService.successes(), HttpStatus.OK);
+        return new ResponseEntity<>(messageService.fail(), HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteUser(@PathVariable("id") int id) {
         if (userService.deleteUser(id))
-            return new ResponseEntity<>(messageService.deleteUserSuccesses(), HttpStatus.OK);
-        else
-            return new ResponseEntity<>(messageService.deleteUserFail(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(messageService.successes(), HttpStatus.OK);
+        return new ResponseEntity<>(messageService.fail(), HttpStatus.NOT_FOUND);
     }
 
 }
