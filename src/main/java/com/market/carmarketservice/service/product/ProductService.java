@@ -1,20 +1,20 @@
 package com.market.carmarketservice.service.product;
 
-import com.market.carmarketservice.model.product.Products;
+import com.market.carmarketservice.model.product.Product;
 
 import java.util.List;
 
 public interface ProductService {
-    public abstract List<Products> getProducts();
+    public List<Product> getProducts();
 
-    public abstract Products getProduct(int id);
+    public Product getProduct(int id);
 
-    public boolean createProduct(Products products);
+    public boolean createProduct(Product product);
 
-    public boolean updateProduct(Products products, int id);
+    public boolean updateProduct(Product product, int id);
 
-    public abstract boolean deleteProduct(int id);
+    public boolean deleteProduct(int id);
 
-    public abstract boolean existProduct(int id);
+    public boolean existProduct(int id);
 
 }

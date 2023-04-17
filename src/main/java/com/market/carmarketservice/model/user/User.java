@@ -1,6 +1,5 @@
 package com.market.carmarketservice.model.user;
 
-import com.market.carmarketservice.model.user.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class Users implements UserDetails {
+public class User implements UserDetails {
     @Id
     @GeneratedValue()
     private Integer id;

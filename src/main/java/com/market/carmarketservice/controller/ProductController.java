@@ -1,6 +1,6 @@
 package com.market.carmarketservice.controller;
 
-import com.market.carmarketservice.model.product.Products;
+import com.market.carmarketservice.model.product.Product;
 import com.market.carmarketservice.service.message.MessageService;
 import com.market.carmarketservice.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class ProductController {
         try {
             return new ResponseEntity<>(productService.getProducts(), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(messageService.productNotFound(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(messageService.notFound(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -28,31 +28,27 @@ public class ProductController {
     public ResponseEntity<Object> getProduct(@PathVariable("id") int id) {
         if (productService.getProduct(id) != null)
             return new ResponseEntity<>(productService.getProduct(id), HttpStatus.OK);
-        else
-            return new ResponseEntity<>(messageService.productNotFound(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(messageService.notFound(), HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(value = "/product", method = RequestMethod.POST)
-    public ResponseEntity<Object> createProduct(@RequestBody Products products) {
-        if (productService.createProduct(products))
-            return new ResponseEntity<>(messageService.createProductSuccesses(), HttpStatus.OK);
-        else
-            return new ResponseEntity<>(messageService.createProductFail(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Object> createProduct(@RequestBody Product product) {
+        if (productService.createProduct(product))
+            return new ResponseEntity<>(messageService.successes(), HttpStatus.OK);
+        return new ResponseEntity<>(messageService.fail(), HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/product/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateProduct(@PathVariable("id") int id, @RequestBody Products products) {
-        if (productService.updateProduct(products, id))
-            return new ResponseEntity<>(messageService.updateProductSuccesses(), HttpStatus.OK);
-        else
-            return new ResponseEntity<>(messageService.updateProductFail(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Object> updateProduct(@PathVariable("id") int id, @RequestBody Product product) {
+        if (productService.updateProduct(product, id))
+            return new ResponseEntity<>(messageService.successes(), HttpStatus.OK);
+        return new ResponseEntity<>(messageService.fail(), HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/product/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteProduct(@PathVariable("id") int id) {
         if (productService.deleteProduct(id))
-            return new ResponseEntity<>(messageService.deleteProductSuccesses(), HttpStatus.OK);
-        else
-            return new ResponseEntity<>(messageService.deleteProductFail(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(messageService.successes(), HttpStatus.OK);
+        return new ResponseEntity<>(messageService.fail(), HttpStatus.BAD_REQUEST);
     }
 }

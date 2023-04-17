@@ -5,7 +5,7 @@ import com.market.carmarketservice.auth.AuthenticationResponse;
 import com.market.carmarketservice.auth.RegisterRequest;
 import com.market.carmarketservice.service.JwtService;
 import com.market.carmarketservice.model.user.Role;
-import com.market.carmarketservice.model.user.Users;
+import com.market.carmarketservice.model.user.User;
 import com.market.carmarketservice.model.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,7 +22,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        var user = Users.builder()
+        var user = User.builder()
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
                 .email(request.getEmail())
