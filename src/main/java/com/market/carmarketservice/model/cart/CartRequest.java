@@ -1,4 +1,4 @@
-package com.market.carmarketservice.auth;
+package com.market.carmarketservice.model.cart;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse {
-    private String token;
-
-    private Integer userID;
-    private String avatar;
+public class CartRequest {
+    private int user;
+    private int product;
+    private int quantity;
 }

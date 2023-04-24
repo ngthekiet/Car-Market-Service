@@ -1,7 +1,7 @@
 package com.market.carmarketservice.service.order;
 
+import com.market.carmarketservice.dto.UserDTO;
 import com.market.carmarketservice.model.order.*;
-import com.market.carmarketservice.model.product.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +24,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         try {
             List<OrderDetail> orderDetails = orderDetailRepository.getOrderDetailsByOrder_Id(orderID);
             OrderDetailResponse orderDetailResponse = new OrderDetailResponse();
-            UserInfo user = new UserInfo();
-            user = user.userMapToUserDTO(orderDetails.get(0).getOrder().getUser());
+            UserDTO user = new UserDTO(orderDetails.get(0).getOrder().getUser());
             List<ProductInfo> products = new ArrayList<>();
             int total = 0;
             for (OrderDetail p : orderDetails) {

@@ -1,6 +1,5 @@
-package com.market.carmarketservice.model.order;
+package com.market.carmarketservice.model.cart;
 
-import com.market.carmarketservice.dto.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,9 +11,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderDetailResponse {
+public class CartResponse {
     private Integer id;
-    private UserDTO user;
+    private String lastName;
     private List<ProductInfo> products;
-    private Integer total;
 }
