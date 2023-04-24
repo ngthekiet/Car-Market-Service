@@ -67,4 +67,14 @@ public class UserController {
         return new ResponseEntity<>(messageService.fail(), HttpStatus.NOT_FOUND);
     }
 
+    @RequestMapping(value = "/checkUsername/{username}", method = RequestMethod.GET)
+    public Boolean checkUsername(@PathVariable("username") String username) {
+        return userService.existUser(username);
+    }
+
+    @RequestMapping(value = "/checkPassword", method = RequestMethod.POST)
+    public Boolean checkPassword(@RequestBody AuthenticationRequest request) {
+        return userService.validPassword(request);
+    }
+
 }
