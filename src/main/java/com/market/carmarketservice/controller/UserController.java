@@ -3,6 +3,7 @@ package com.market.carmarketservice.controller;
 import com.market.carmarketservice.auth.AuthenticationRequest;
 import com.market.carmarketservice.auth.AuthenticationResponse;
 import com.market.carmarketservice.auth.RegisterRequest;
+import com.market.carmarketservice.request.valid.Username;
 import com.market.carmarketservice.service.message.MessageService;
 import com.market.carmarketservice.service.user.AuthenticationService;
 import com.market.carmarketservice.model.user.User;
@@ -67,9 +68,9 @@ public class UserController {
         return new ResponseEntity<>(messageService.fail(), HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/checkUsername/{username}", method = RequestMethod.GET)
-    public Boolean checkUsername(@PathVariable("username") String username) {
-        return userService.existUser(username);
+    @RequestMapping(value = "/checkUsername", method = RequestMethod.POST)
+    public Boolean checkUsername(@RequestBody Username username) {
+        return userService.existUser(username.getUsername());
     }
 
     @RequestMapping(value = "/checkPassword", method = RequestMethod.POST)
