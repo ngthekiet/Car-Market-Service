@@ -1,4 +1,4 @@
-package com.market.carmarketservice.controller;
+package com.market.carmarketservice.api;
 
 import com.market.carmarketservice.auth.AuthenticationRequest;
 import com.market.carmarketservice.auth.AuthenticationResponse;
@@ -16,13 +16,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin
 //@CrossOrigin(origins = "http://localhost:3001/")
+@RequestMapping(value = "/api")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
     private final AuthenticationService authenticationService;
     private final MessageService messageService;
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @RequestMapping(value = "/pri/users", method = RequestMethod.GET)
     public ResponseEntity<Object> getUsers() {
         try {
             return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
@@ -31,14 +32,14 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/pri/user/{id}", method = RequestMethod.GET)
     public ResponseEntity<Object> getUser(@PathVariable("id") int id) {
         if (userService.getUser(id) != null)
             return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
         return new ResponseEntity<>(messageService.notFound(), HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("/register")
+    @PostMapping("/pub/register")
     public ResponseEntity<Object> register(
             @RequestBody RegisterRequest request
     ) {
@@ -47,33 +48,33 @@ public class UserController {
         return new ResponseEntity<>(messageService.userIsExist(), HttpStatus.BAD_REQUEST);
     }
 
-    @PostMapping("/authenticate")
+    @PostMapping("/pub/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request
     ) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/pri/user/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateUser(@PathVariable("id") int id, @RequestBody User user) {
         if (userService.updateUser(user, id))
             return new ResponseEntity<>(messageService.successes(), HttpStatus.OK);
         return new ResponseEntity<>(messageService.fail(), HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/pri/user/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteUser(@PathVariable("id") int id) {
         if (userService.deleteUser(id))
             return new ResponseEntity<>(messageService.successes(), HttpStatus.OK);
         return new ResponseEntity<>(messageService.fail(), HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/checkUsername", method = RequestMethod.POST)
+    @RequestMapping(value = "/pub/checkUsername", method = RequestMethod.POST)
     public Boolean checkUsername(@RequestBody Username username) {
         return userService.existUser(username.getUsername());
     }
 
-    @RequestMapping(value = "/checkPassword", method = RequestMethod.POST)
+    @RequestMapping(value = "/pub/checkPassword", method = RequestMethod.POST)
     public Boolean checkPassword(@RequestBody AuthenticationRequest request) {
         return userService.validPassword(request);
     }

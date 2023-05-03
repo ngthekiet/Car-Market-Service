@@ -1,4 +1,4 @@
-package com.market.carmarketservice.controller.exception;
+package com.market.carmarketservice.api.exception;
 
 import com.market.carmarketservice.exception.AccessErrorException;
 import com.market.carmarketservice.exception.LinkNotFoundException;

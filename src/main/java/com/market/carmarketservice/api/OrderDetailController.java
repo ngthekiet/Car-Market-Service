@@ -1,4 +1,4 @@
-package com.market.carmarketservice.controller;
+package com.market.carmarketservice.api;
 
 import com.market.carmarketservice.service.message.MessageService;
 import com.market.carmarketservice.service.order.OrderDetailService;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin
 @RequiredArgsConstructor
+@RequestMapping(value = "/api/pri")
 public class OrderDetailController {
     private final OrderDetailService orderDetailService;
     private final MessageService messageService;

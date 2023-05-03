@@ -1,4 +1,4 @@
-package com.market.carmarketservice.controller;
+package com.market.carmarketservice.api;
 
 import com.market.carmarketservice.model.category.Category;
 import com.market.carmarketservice.service.category.CategoryService;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @CrossOrigin
 @RequiredArgsConstructor
+@RequestMapping(value = "/api/pri")
 public class CategoryController {
     private final CategoryService categoryService;
     private final MessageService messageService;
