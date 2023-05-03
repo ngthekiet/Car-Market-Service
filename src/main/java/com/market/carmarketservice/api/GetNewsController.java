@@ -1,17 +1,15 @@
-package com.market.carmarketservice.controller;
+package com.market.carmarketservice.api;
 
 import com.market.carmarketservice.service.news.GetNewsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
 @RequiredArgsConstructor
+@RequestMapping(value = "/api/pub")
 public class GetNewsController {
     private final GetNewsService getNewsService;
 

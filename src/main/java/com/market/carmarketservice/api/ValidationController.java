@@ -1,4 +1,4 @@
-package com.market.carmarketservice.controller;
+package com.market.carmarketservice.api;
 
 import com.market.carmarketservice.request.valid.Email;
 import com.market.carmarketservice.request.valid.Password;
@@ -10,14 +10,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin
 @RequiredArgsConstructor
-@RequestMapping(value = "/valid")
+@RequestMapping(value = "/api/pub/valid")
 public class ValidationController {
     private final ValidationService validationService;
 
     @RequestMapping(value = "/username", method = RequestMethod.POST)
     public boolean validUsername(@RequestBody Username username) {
-        System.out.println(username.getUsername());
-        System.out.println(validationService.validUsername(username.getUsername()));
         return validationService.validUsername(username.getUsername());
     }
 

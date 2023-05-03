@@ -1,4 +1,4 @@
-package com.market.carmarketservice.controller;
+package com.market.carmarketservice.api;
 
 import com.market.carmarketservice.model.product.Product;
 import com.market.carmarketservice.service.message.MessageService;
@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin
 @RequiredArgsConstructor
+@RequestMapping(value = "/api")
 public class ProductController {
     private final ProductService productService;
     private final MessageService messageService;
 
-    @RequestMapping(value = "/products", method = RequestMethod.GET)
+    @RequestMapping(value = "/pub/products", method = RequestMethod.GET)
     public ResponseEntity<Object> getProducts() {
         try {
             return new ResponseEntity<>(productService.getProducts(), HttpStatus.OK);
@@ -24,28 +25,28 @@ public class ProductController {
         }
     }
 
-    @RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/pub/product/{id}", method = RequestMethod.GET)
     public ResponseEntity<Object> getProduct(@PathVariable("id") int id) {
         if (productService.getProduct(id) != null)
             return new ResponseEntity<>(productService.getProduct(id), HttpStatus.OK);
         return new ResponseEntity<>(messageService.notFound(), HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/product", method = RequestMethod.POST)
+    @RequestMapping(value = "/pri/product", method = RequestMethod.POST)
     public ResponseEntity<Object> createProduct(@RequestBody Product product) {
         if (productService.createProduct(product))
             return new ResponseEntity<>(messageService.successes(), HttpStatus.OK);
         return new ResponseEntity<>(messageService.fail(), HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/product/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/pri/product/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateProduct(@PathVariable("id") int id, @RequestBody Product product) {
         if (productService.updateProduct(product, id))
             return new ResponseEntity<>(messageService.successes(), HttpStatus.OK);
         return new ResponseEntity<>(messageService.fail(), HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/product/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/pri/product/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteProduct(@PathVariable("id") int id) {
         if (productService.deleteProduct(id))
             return new ResponseEntity<>(messageService.successes(), HttpStatus.OK);
