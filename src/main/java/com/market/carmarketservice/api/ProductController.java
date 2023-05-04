@@ -1,6 +1,7 @@
 package com.market.carmarketservice.api;
 
 import com.market.carmarketservice.model.product.Product;
+import com.market.carmarketservice.request.search.ProductRequest;
 import com.market.carmarketservice.service.message.MessageService;
 import com.market.carmarketservice.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +51,13 @@ public class ProductController {
     public ResponseEntity<Object> deleteProduct(@PathVariable("id") int id) {
         if (productService.deleteProduct(id))
             return new ResponseEntity<>(messageService.successes(), HttpStatus.OK);
+        return new ResponseEntity<>(messageService.fail(), HttpStatus.BAD_REQUEST);
+    }
+
+    @RequestMapping(value = "/pub/search", method = RequestMethod.POST)
+    public ResponseEntity<Object> findAll(@RequestBody ProductRequest request) {
+        if (productService.searchProducts(request.getText()) != null)
+            return new ResponseEntity<>(productService.searchProducts(request.getText()), HttpStatus.OK);
         return new ResponseEntity<>(messageService.fail(), HttpStatus.BAD_REQUEST);
     }
 }

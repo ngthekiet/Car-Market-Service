@@ -1,8 +1,8 @@
 package com.market.carmarketservice.api;
 
-import com.market.carmarketservice.auth.AuthenticationRequest;
-import com.market.carmarketservice.auth.AuthenticationResponse;
-import com.market.carmarketservice.auth.RegisterRequest;
+import com.market.carmarketservice.request.auth.AuthenticationRequest;
+import com.market.carmarketservice.response.auth.AuthenticationResponse;
+import com.market.carmarketservice.request.auth.RegisterRequest;
 import com.market.carmarketservice.request.valid.Username;
 import com.market.carmarketservice.service.message.MessageService;
 import com.market.carmarketservice.service.user.AuthenticationService;

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.NumberFormat;
 
 @Data
 @Builder
@@ -19,6 +20,7 @@ public class Product {
     private Integer id;
     private String name;
     private String image;
+    @NumberFormat(style = NumberFormat.Style.CURRENCY)
     private Integer price;
     @ManyToOne
     private Category category;
