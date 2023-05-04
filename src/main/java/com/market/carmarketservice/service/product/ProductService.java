@@ -17,4 +17,6 @@ public interface ProductService {
 
     public boolean existProduct(int id);
 
+    public List<Product> searchProducts(String text);
+
 }

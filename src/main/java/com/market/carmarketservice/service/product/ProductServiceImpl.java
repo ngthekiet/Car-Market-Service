@@ -67,4 +67,9 @@ public class ProductServiceImpl implements ProductService {
     public boolean existProduct(int id) {
         return productRepository.existsProductsById(id);
     }
+
+    @Override
+    public List<Product> searchProducts(String text) {
+        return (List<Product>) productRepository.searchProduct(text);
+    }
 }

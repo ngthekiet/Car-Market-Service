@@ -1,4 +1,4 @@
-package com.market.carmarketservice.auth;
+package com.market.carmarketservice.request.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

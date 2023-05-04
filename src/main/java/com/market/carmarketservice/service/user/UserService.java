@@ -1,6 +1,6 @@
 package com.market.carmarketservice.service.user;
 
-import com.market.carmarketservice.auth.AuthenticationRequest;
+import com.market.carmarketservice.request.auth.AuthenticationRequest;
 import com.market.carmarketservice.model.user.User;
 
 import java.util.List;
