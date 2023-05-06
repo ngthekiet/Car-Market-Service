@@ -1,4 +1,4 @@
-package com.market.carmarketservice.request.search;
+package com.market.carmarketservice.request.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductRequest {
-    private String text;
+public class AvatarRequest {
+    private String avatar;
 }
