@@ -3,6 +3,7 @@ package com.market.carmarketservice.service.user;
 import com.market.carmarketservice.request.auth.AuthenticationRequest;
 import com.market.carmarketservice.model.user.User;
 import com.market.carmarketservice.model.user.UserRepository;
+import com.market.carmarketservice.request.user.AvatarRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,6 +23,8 @@ public class UserServiceImpl implements UserService {
     public boolean updateUser(User user, int id) {
         Optional<User> userOld = userRepository.findById(id);
         if (isUser(id)) {
+            if (user.getAvatar() == null)
+                user.setAvatar(userOld.get().getAvatar());
             user.setId(id);
             user.setUsername(userOld.get().getUsername());
             user.setPassword(userOld.get().getPassword());
@@ -83,5 +86,17 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @Override
+    public boolean changeAvatar(AvatarRequest avatar, int id) {
+        Optional<User> userOld = userRepository.findById(id);
+        if (isUser(id)) {
+            User user = userOld.get();
+            user.setAvatar(avatar.getAvatar());
+            userRepository.save(user);
+            return true;
+        }
+        return false;
     }
 }

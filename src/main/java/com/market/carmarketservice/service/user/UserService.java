@@ -2,6 +2,7 @@ package com.market.carmarketservice.service.user;
 
 import com.market.carmarketservice.request.auth.AuthenticationRequest;
 import com.market.carmarketservice.model.user.User;
+import com.market.carmarketservice.request.user.AvatarRequest;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface UserService {
     public boolean existUser(String username);
 
     public boolean validPassword(AuthenticationRequest request);
+
+    public boolean changeAvatar(AvatarRequest avatar, int id);
 }
