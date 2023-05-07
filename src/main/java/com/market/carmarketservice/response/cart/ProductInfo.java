@@ -1,4 +1,4 @@
-package com.market.carmarketservice.model.cart;
+package com.market.carmarketservice.response.cart;
 
 import com.market.carmarketservice.model.product.Product;
 import lombok.AllArgsConstructor;

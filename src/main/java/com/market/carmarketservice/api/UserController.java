@@ -1,7 +1,7 @@
 package com.market.carmarketservice.api;
 
 import com.market.carmarketservice.request.auth.AuthenticationRequest;
-import com.market.carmarketservice.request.user.AvatarRequest;
+import com.market.carmarketservice.request.user.UserRequest;
 import com.market.carmarketservice.response.auth.AuthenticationResponse;
 import com.market.carmarketservice.request.auth.RegisterRequest;
 import com.market.carmarketservice.request.valid.Username;
@@ -64,7 +64,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/pri/avatar/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> changeAvatar(@PathVariable("id") int id, @RequestBody AvatarRequest avatar) {
+    public ResponseEntity<Object> changeAvatar(@PathVariable("id") int id, @RequestBody UserRequest avatar) {
         if (userService.changeAvatar(avatar, id))
             return new ResponseEntity<>(messageService.successes(), HttpStatus.OK);
         return new ResponseEntity<>(messageService.fail(), HttpStatus.BAD_REQUEST);

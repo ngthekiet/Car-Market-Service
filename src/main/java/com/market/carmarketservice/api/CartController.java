@@ -1,6 +1,6 @@
 package com.market.carmarketservice.api;
 
-import com.market.carmarketservice.model.cart.CartRequest;
+import com.market.carmarketservice.request.cart.CartRequest;
 import com.market.carmarketservice.service.cart.CartService;
 import com.market.carmarketservice.service.message.MessageService;
 import lombok.RequiredArgsConstructor;

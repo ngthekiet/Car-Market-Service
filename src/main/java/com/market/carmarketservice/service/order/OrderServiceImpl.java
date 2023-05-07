@@ -8,22 +8,19 @@ import com.market.carmarketservice.model.order.OrderDetailRepository;
 import com.market.carmarketservice.model.order.OrderRepository;
 import com.market.carmarketservice.model.user.User;
 import com.market.carmarketservice.model.user.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
-    @Autowired
-    private CartRepository cartRepository;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private OrderRepository orderRepository;
-    @Autowired
-    private OrderDetailRepository orderDetailRepository;
+    private final CartRepository cartRepository;
+    private final UserRepository userRepository;
+    private final OrderRepository orderRepository;
+    private final OrderDetailRepository orderDetailRepository;
 
     @Override
     public boolean order(int uid) {
