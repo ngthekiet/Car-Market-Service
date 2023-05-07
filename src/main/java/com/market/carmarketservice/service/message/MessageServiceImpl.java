@@ -3,7 +3,7 @@ package com.market.carmarketservice.service.message;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MessageImpl implements MessageService {
+public class MessageServiceImpl implements MessageService {
     @Override
     public String userIsExist() {
         return "User is exist";
