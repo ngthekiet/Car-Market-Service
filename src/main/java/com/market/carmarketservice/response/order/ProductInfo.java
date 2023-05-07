@@ -1,4 +1,4 @@
-package com.market.carmarketservice.model.order;
+package com.market.carmarketservice.response.order;
 
 import com.market.carmarketservice.model.product.Product;
 import lombok.AllArgsConstructor;

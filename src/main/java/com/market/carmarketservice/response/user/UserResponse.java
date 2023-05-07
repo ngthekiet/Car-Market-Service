@@ -1,5 +1,6 @@
-package com.market.carmarketservice.dto;
+package com.market.carmarketservice.response.user;
 
+import com.market.carmarketservice.model.user.Role;
 import com.market.carmarketservice.model.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
+public class UserResponse {
     private Integer id;
     private String firstname;
     private String lastname;
@@ -20,8 +21,9 @@ public class UserDTO {
     private String avatar;
     private Integer birthyear;
     private String username;
+    private Role role;
 
-    public UserDTO(User user) {
+    public UserResponse(User user) {
         this.id = user.getId();
         this.firstname = user.getFirstname();
         this.lastname = user.getLastname();
@@ -31,5 +33,6 @@ public class UserDTO {
         this.avatar = user.getAvatar();
         this.birthyear = user.getBirthyear();
         this.username = user.getUsername();
+        this.role = user.getRole();
     }
 }

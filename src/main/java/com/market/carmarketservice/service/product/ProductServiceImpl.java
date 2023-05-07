@@ -2,16 +2,16 @@ package com.market.carmarketservice.service.product;
 
 import com.market.carmarketservice.model.product.ProductRepository;
 import com.market.carmarketservice.model.product.Product;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     @Override
     public List<Product> getProducts() {

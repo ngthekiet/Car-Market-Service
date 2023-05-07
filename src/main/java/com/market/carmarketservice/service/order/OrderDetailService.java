@@ -1,7 +1,7 @@
 package com.market.carmarketservice.service.order;
 
 import com.market.carmarketservice.model.order.OrderDetail;
-import com.market.carmarketservice.model.order.OrderDetailResponse;
+import com.market.carmarketservice.response.order.OrderDetailResponse;
 
 import java.util.List;
 

@@ -5,19 +5,20 @@ import com.market.carmarketservice.model.product.Product;
 import com.market.carmarketservice.model.product.ProductRepository;
 import com.market.carmarketservice.model.user.User;
 import com.market.carmarketservice.model.user.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.market.carmarketservice.request.cart.CartRequest;
+import com.market.carmarketservice.response.cart.CartResponse;
+import com.market.carmarketservice.response.cart.ProductInfo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
+@RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
-    @Autowired
-    private CartRepository cartRepository;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private ProductRepository productRepository;
+    private final CartRepository cartRepository;
+    private final UserRepository userRepository;
+    private final ProductRepository productRepository;
 
     @Override
     public CartResponse getCart(int uid) {

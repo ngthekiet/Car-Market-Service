@@ -1,18 +1,19 @@
 package com.market.carmarketservice.service.order;
 
-import com.market.carmarketservice.dto.UserDTO;
+import com.market.carmarketservice.response.order.OrderDetailResponse;
+import com.market.carmarketservice.response.order.ProductInfo;
+import com.market.carmarketservice.response.user.UserResponse;
 import com.market.carmarketservice.model.order.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-
+@RequiredArgsConstructor
 public class OrderDetailServiceImpl implements OrderDetailService {
-    @Autowired
-    private OrderDetailRepository orderDetailRepository;
+    private final OrderDetailRepository orderDetailRepository;
 
     @Override
     public List<OrderDetail> getAllOrderDetail() {
@@ -24,7 +25,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         try {
             List<OrderDetail> orderDetails = orderDetailRepository.getOrderDetailsByOrder_Id(orderID);
             OrderDetailResponse orderDetailResponse = new OrderDetailResponse();
-            UserDTO user = new UserDTO(orderDetails.get(0).getOrder().getUser());
+            UserResponse user = new UserResponse(orderDetails.get(0).getOrder().getUser());
             List<ProductInfo> products = new ArrayList<>();
             int total = 0;
             for (OrderDetail p : orderDetails) {

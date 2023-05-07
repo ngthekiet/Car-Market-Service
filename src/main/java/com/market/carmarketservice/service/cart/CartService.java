@@ -1,7 +1,7 @@
 package com.market.carmarketservice.service.cart;
 
-import com.market.carmarketservice.model.cart.CartRequest;
-import com.market.carmarketservice.model.cart.CartResponse;
+import com.market.carmarketservice.request.cart.CartRequest;
+import com.market.carmarketservice.response.cart.CartResponse;
 
 public interface CartService {
 
