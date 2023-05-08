@@ -22,16 +22,20 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public CartResponse getCart(int uid) {
-        List<Cart> cartList = cartRepository.getCartsByUserId(uid);
-        List<ProductInfo> productInfos = new ArrayList<>();
-        for (Cart c : cartList) {
-            productInfos.add(new ProductInfo(c.getId(), c.getProduct(), c.getQuantity()));
+        try {
+            List<Cart> cartList = cartRepository.getCartsByUserId(uid);
+            List<ProductInfo> productInfos = new ArrayList<>();
+            for (Cart c : cartList) {
+                productInfos.add(new ProductInfo(c.getId(), c.getProduct(), c.getQuantity()));
+            }
+            CartResponse cartResponse = new CartResponse();
+            cartResponse.setId(cartList.get(0).getId());
+            cartResponse.setLastName(cartList.get(0).getUser().getLastname());
+            cartResponse.setProducts(productInfos);
+            return cartResponse;
+        } catch (Exception e) {
+            return null;
         }
-        CartResponse cartResponse = new CartResponse();
-        cartResponse.setId(cartList.get(0).getId());
-        cartResponse.setLastName(cartList.get(0).getUser().getLastname());
-        cartResponse.setProducts(productInfos);
-        return cartResponse;
     }
 
     @Override
