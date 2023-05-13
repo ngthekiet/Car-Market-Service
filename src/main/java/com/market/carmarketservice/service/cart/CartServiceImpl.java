@@ -6,6 +6,7 @@ import com.market.carmarketservice.model.product.ProductRepository;
 import com.market.carmarketservice.model.user.User;
 import com.market.carmarketservice.model.user.UserRepository;
 import com.market.carmarketservice.request.cart.CartRequest;
+import com.market.carmarketservice.request.cart.UpdateCartRequest;
 import com.market.carmarketservice.response.cart.CartResponse;
 import com.market.carmarketservice.response.cart.ProductInfo;
 import lombok.RequiredArgsConstructor;
@@ -25,13 +26,16 @@ public class CartServiceImpl implements CartService {
         try {
             List<Cart> cartList = cartRepository.getCartsByUserId(uid);
             List<ProductInfo> productInfos = new ArrayList<>();
+            int total = 0;
             for (Cart c : cartList) {
                 productInfos.add(new ProductInfo(c.getId(), c.getProduct(), c.getQuantity(), (c.getQuantity() * c.getProduct().getPrice())));
+                total += c.getQuantity() * c.getProduct().getPrice();
             }
             CartResponse cartResponse = new CartResponse();
             cartResponse.setId(cartList.get(0).getId());
             cartResponse.setLastName(cartList.get(0).getUser().getLastname());
             cartResponse.setProducts(productInfos);
+            cartResponse.setTotal(total);
             return cartResponse;
         } catch (Exception e) {
             return null;
@@ -61,6 +65,23 @@ public class CartServiceImpl implements CartService {
         try {
             cartRepository.deleteById(id);
             return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateCart(UpdateCartRequest updateCartRequest) {
+        try {
+            Optional<Cart> optionalCart = cartRepository.findById(updateCartRequest.getCartID());
+            Cart cart = optionalCart.get();
+            if (cart.getQuantity() + updateCartRequest.getQuantity() > 0) {
+                cart.setQuantity(cart.getQuantity() + updateCartRequest.getQuantity());
+                cartRepository.save(cart);
+                return true;
+            }
+            cart.setQuantity(cart.getQuantity());
+            return false;
         } catch (Exception e) {
             return false;
         }
