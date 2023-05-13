@@ -26,7 +26,7 @@ public class CartServiceImpl implements CartService {
             List<Cart> cartList = cartRepository.getCartsByUserId(uid);
             List<ProductInfo> productInfos = new ArrayList<>();
             for (Cart c : cartList) {
-                productInfos.add(new ProductInfo(c.getId(), c.getProduct(), c.getQuantity()));
+                productInfos.add(new ProductInfo(c.getId(), c.getProduct(), c.getQuantity(), (c.getQuantity() * c.getProduct().getPrice())));
             }
             CartResponse cartResponse = new CartResponse();
             cartResponse.setId(cartList.get(0).getId());

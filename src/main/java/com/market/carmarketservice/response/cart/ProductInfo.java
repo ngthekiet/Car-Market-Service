@@ -14,4 +14,5 @@ public class ProductInfo {
     private Integer cartID;
     private Product product;
     private Integer quantity;
+    private Integer temporaryPrice;
 }
