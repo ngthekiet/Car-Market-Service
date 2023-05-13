@@ -15,4 +15,5 @@ public class CartResponse {
     private Integer id;
     private String lastName;
     private List<ProductInfo> products;
+    private Integer total;
 }
