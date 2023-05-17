@@ -1,5 +1,6 @@
 package com.market.carmarketservice.api;
 
+import com.market.carmarketservice.request.order.OrderRequest;
 import com.market.carmarketservice.service.message.MessageService;
 import com.market.carmarketservice.service.order.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -15,9 +16,9 @@ public class OrderController {
     private final OrderService orderService;
     private final MessageService messageService;
 
-    @RequestMapping(value = "/order/{uid}", method = RequestMethod.POST)
-    public ResponseEntity<Object> order(@PathVariable("uid") int uid) {
-        if (orderService.order(uid))
+    @RequestMapping(value = "/order", method = RequestMethod.POST)
+    public ResponseEntity<Object> order(@RequestBody OrderRequest request) {
+        if (orderService.order(request.getUid()))
             return new ResponseEntity<>(messageService.successes(), HttpStatus.OK);
         return new ResponseEntity<>(messageService.fail(), HttpStatus.BAD_REQUEST);
     }

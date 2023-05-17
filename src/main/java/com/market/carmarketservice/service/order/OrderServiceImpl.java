@@ -24,25 +24,29 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean order(int uid) {
-        List<Cart> carts = cartRepository.getCartsByUserId(uid);
-        Optional<User> user = userRepository.findById(uid);
-        var order = Order.builder()
-                .user(user.get())
-                .status("Chờ xác nhận")
-                .build();
-        orderRepository.save(order);
-        for (Cart c : carts) {
-            Optional<Order> optional = orderRepository.findById(order.getId());
-            var orderDetail = OrderDetail.builder()
-                    .order(optional.get())
-                    .product(c.getProduct())
-                    .price(1000)
-                    .quantity(c.getQuantity())
+        try {
+            List<Cart> carts = cartRepository.getCartsByUserId(uid);
+            Optional<User> user = userRepository.findById(uid);
+            var order = Order.builder()
+                    .user(user.get())
+                    .status("Chờ xác nhận")
                     .build();
-            orderDetailRepository.save(orderDetail);
-            cartRepository.deleteById(c.getId());
+            orderRepository.save(order);
+            for (Cart c : carts) {
+                Optional<Order> optional = orderRepository.findById(order.getId());
+                var orderDetail = OrderDetail.builder()
+                        .order(optional.get())
+                        .product(c.getProduct())
+                        .price(1000)
+                        .quantity(c.getQuantity())
+                        .build();
+                orderDetailRepository.save(orderDetail);
+                cartRepository.deleteById(c.getId());
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
         }
-        return false;
     }
 
     @Override
