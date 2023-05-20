@@ -8,9 +8,13 @@ import com.market.carmarketservice.model.order.OrderDetailRepository;
 import com.market.carmarketservice.model.order.OrderRepository;
 import com.market.carmarketservice.model.user.User;
 import com.market.carmarketservice.model.user.UserRepository;
+import com.market.carmarketservice.response.order.OrderResponse;
+import com.market.carmarketservice.response.user.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +34,8 @@ public class OrderServiceImpl implements OrderService {
             var order = Order.builder()
                     .user(user.get())
                     .status("Chờ xác nhận")
+                    .createDate(new Timestamp(System.currentTimeMillis()))
+                    .updateDate(new Timestamp(System.currentTimeMillis()))
                     .build();
             orderRepository.save(order);
             for (Cart c : carts) {
@@ -50,7 +56,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getOrders(int uid) {
-        return orderRepository.getOrderByUserId(uid);
+    public List<OrderResponse> getOrders(int uid) {
+        List<OrderResponse> response = new ArrayList<>();
+        List<Order> order = orderRepository.getOrderByUserId(uid);
+        for (Order o : order) {
+            OrderResponse or = new OrderResponse();
+            or.setId(o.getId());
+            or.setUser(new UserResponse(o.getUser()));
+            or.setStatus(o.getStatus());
+            or.setCreateDate(o.getCreateDate());
+            or.setUpdateDate(o.getUpdateDate());
+            response.add(or);
+        }
+        return response;
     }
 }
