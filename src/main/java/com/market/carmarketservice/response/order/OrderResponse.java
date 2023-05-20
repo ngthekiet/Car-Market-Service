@@ -1,7 +1,7 @@
-package com.market.carmarketservice.model.order;
+package com.market.carmarketservice.response.order;
 
-import com.market.carmarketservice.model.user.User;
-import jakarta.persistence.*;
+import com.market.carmarketservice.response.user.UserResponse;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,17 +11,14 @@ import java.sql.Timestamp;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "orders")
-public class Order {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@NoArgsConstructor
+public class OrderResponse {
     private Integer id;
     @ManyToOne
-    private User user;
+    private UserResponse user;
     private String status;
+
     private Timestamp createDate;
     private Timestamp updateDate;
 }
