@@ -43,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
                 var orderDetail = OrderDetail.builder()
                         .order(optional.get())
                         .product(c.getProduct())
-                        .price(1000)
+                        .price(c.getProduct().getPrice() * c.getQuantity())
                         .quantity(c.getQuantity())
                         .build();
                 orderDetailRepository.save(orderDetail);
@@ -68,6 +68,32 @@ public class OrderServiceImpl implements OrderService {
             or.setUpdateDate(o.getUpdateDate());
             response.add(or);
         }
+        return response;
+    }
+
+    @Override
+    public boolean cancelOrder(int id) {
+        try {
+            Optional<Order> optional = orderRepository.findById(id);
+            Order order = optional.get();
+            order.setStatus("Đã hủy");
+            orderRepository.save(order);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public OrderResponse getOrder(int oid) {
+        Optional<Order> optional = orderRepository.findById(oid);
+        Order order = optional.get();
+        OrderResponse response = new OrderResponse();
+        response.setId(order.getId());
+        response.setUser(new UserResponse(order.getUser()));
+        response.setStatus(order.getStatus());
+        response.setCreateDate(order.getCreateDate());
+        response.setUpdateDate(order.getUpdateDate());
         return response;
     }
 }

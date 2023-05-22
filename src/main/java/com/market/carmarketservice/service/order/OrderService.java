@@ -5,7 +5,11 @@ import com.market.carmarketservice.response.order.OrderResponse;
 import java.util.List;
 
 public interface OrderService {
-    public boolean order(int uid);
+    boolean order(int uid);
 
-    public List<OrderResponse> getOrders(int uid);
+    List<OrderResponse> getOrders(int uid);
+
+    boolean cancelOrder(int id);
+
+    OrderResponse getOrder(int oid);
 }
