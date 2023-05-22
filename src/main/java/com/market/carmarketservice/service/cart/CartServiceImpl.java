@@ -1,6 +1,8 @@
 package com.market.carmarketservice.service.cart;
 
 import com.market.carmarketservice.model.cart.*;
+import com.market.carmarketservice.model.order.OrderDetail;
+import com.market.carmarketservice.model.order.OrderDetailRepository;
 import com.market.carmarketservice.model.product.Product;
 import com.market.carmarketservice.model.product.ProductRepository;
 import com.market.carmarketservice.model.user.User;
@@ -20,6 +22,8 @@ public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
+
+    private final OrderDetailRepository orderDetailRepository;
 
     @Override
     public CartResponse getCart(int uid) {
@@ -82,6 +86,24 @@ public class CartServiceImpl implements CartService {
             }
             cart.setQuantity(cart.getQuantity());
             return false;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean repurchase(int oid) {
+        try {
+            List<OrderDetail> details = orderDetailRepository.getOrderDetailsByOrder_Id(oid);
+            for (OrderDetail o : details) {
+                var cart = Cart.builder()
+                        .user(o.getOrder().getUser())
+                        .product(o.getProduct())
+                        .quantity(o.getQuantity())
+                        .build();
+                cartRepository.save(cart);
+            }
+            return true;
         } catch (Exception e) {
             return false;
         }
