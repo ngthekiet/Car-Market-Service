@@ -1,8 +1,10 @@
 package com.market.carmarketservice.service.cart;
 
 import com.market.carmarketservice.model.cart.*;
+import com.market.carmarketservice.model.order.Order;
 import com.market.carmarketservice.model.order.OrderDetail;
 import com.market.carmarketservice.model.order.OrderDetailRepository;
+import com.market.carmarketservice.model.order.OrderRepository;
 import com.market.carmarketservice.model.product.Product;
 import com.market.carmarketservice.model.product.ProductRepository;
 import com.market.carmarketservice.model.user.User;
@@ -22,8 +24,8 @@ public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
-
     private final OrderDetailRepository orderDetailRepository;
+    private final OrderRepository orderRepository;
 
     @Override
     public CartResponse getCart(int uid) {
@@ -94,14 +96,18 @@ public class CartServiceImpl implements CartService {
     @Override
     public boolean repurchase(int oid) {
         try {
+            Optional<Order> optional = orderRepository.findById(oid);
+            Order order = optional.get();
+            List<Cart> cartList = cartRepository.getCartsByUserId(order.getUser().getId());
+            Map<Integer, Cart> mapCart = new HashMap<>();
+            for (Cart c : cartList)
+                mapCart.put(c.getProduct().getId(), c);
             List<OrderDetail> details = orderDetailRepository.getOrderDetailsByOrder_Id(oid);
             for (OrderDetail o : details) {
-                var cart = Cart.builder()
-                        .user(o.getOrder().getUser())
-                        .product(o.getProduct())
-                        .quantity(o.getQuantity())
-                        .build();
-                cartRepository.save(cart);
+                if (mapCart.containsKey(o.getProduct().getId()))
+                    updateCart(new CartRequest(o.getOrder().getUser().getId(), o.getProduct().getId(), o.getQuantity()), mapCart);
+                else
+                    addCart(new CartRequest(o.getOrder().getUser().getId(), o.getProduct().getId(), o.getQuantity()));
             }
             return true;
         } catch (Exception e) {
