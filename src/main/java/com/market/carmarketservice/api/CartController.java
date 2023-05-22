@@ -2,6 +2,7 @@ package com.market.carmarketservice.api;
 
 import com.market.carmarketservice.request.cart.CartRequest;
 import com.market.carmarketservice.request.cart.UpdateCartRequest;
+import com.market.carmarketservice.request.order.OrderIDRequest;
 import com.market.carmarketservice.service.cart.CartService;
 import com.market.carmarketservice.service.message.MessageService;
 import lombok.RequiredArgsConstructor;
@@ -40,5 +41,10 @@ public class CartController {
     @RequestMapping(value = "/updateCart", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateCart(@RequestBody UpdateCartRequest updateCartRequest) {
         return new ResponseEntity<>(cartService.updateCart(updateCartRequest), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/repurchase", method = RequestMethod.POST)
+    public ResponseEntity<Object> repurchase(@RequestBody OrderIDRequest request) {
+        return new ResponseEntity<>(cartService.repurchase(request.getOid()), HttpStatus.OK);
     }
 }
