@@ -5,18 +5,20 @@ import com.market.carmarketservice.model.product.Product;
 import java.util.List;
 
 public interface ProductService {
-    public List<Product> getProducts();
+    List<Product> getProducts();
 
-    public Product getProduct(int id);
+    Product getProduct(int id);
 
-    public boolean createProduct(Product product);
+    List<Product> getProductByBrand(int cid);
 
-    public boolean updateProduct(Product product, int id);
+    boolean createProduct(Product product);
 
-    public boolean deleteProduct(int id);
+    boolean updateProduct(Product product, int id);
 
-    public boolean existProduct(int id);
+    boolean deleteProduct(int id);
 
-    public List<Product> searchProducts(String text);
+    boolean existProduct(int id);
+
+    List<Product> searchProducts(String text);
 
 }

@@ -9,6 +9,8 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Integer> {
     boolean existsProductsById(int id);
 
+    List<Product> getProductsByBrandId(int cid);
+
     @Query("SELECT p from Product p where p.name like %:text%")
     List<Product> searchProduct(@Param("text") String text);
 }

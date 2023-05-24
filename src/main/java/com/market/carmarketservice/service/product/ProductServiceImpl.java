@@ -29,6 +29,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getProductByBrand(int cid) {
+        return (List<Product>) productRepository.getProductsByBrandId(cid);
+    }
+
+    @Override
     public boolean createProduct(Product other) {
         try {
             var product = Product.builder()

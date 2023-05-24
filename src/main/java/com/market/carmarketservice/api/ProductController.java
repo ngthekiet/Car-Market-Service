@@ -33,6 +33,13 @@ public class ProductController {
         return new ResponseEntity<>(messageService.notFound(), HttpStatus.NOT_FOUND);
     }
 
+    @RequestMapping(value = "/pub/productBrand/{cid}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getProductByBrand(@PathVariable("cid") int cid) {
+        if (productService.getProductByBrand(cid) != null)
+            return new ResponseEntity<>(productService.getProductByBrand(cid), HttpStatus.OK);
+        return new ResponseEntity<>(messageService.notFound(), HttpStatus.NOT_FOUND);
+    }
+
     @RequestMapping(value = "/pri/product", method = RequestMethod.POST)
     public ResponseEntity<Object> createProduct(@RequestBody Product product) {
         if (productService.createProduct(product))
