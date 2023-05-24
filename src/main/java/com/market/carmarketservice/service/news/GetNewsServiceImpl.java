@@ -1,4 +1,5 @@
 package com.market.carmarketservice.service.news;
+
 import com.market.carmarketservice.exception.LinkNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
@@ -14,8 +15,8 @@ public class GetNewsServiceImpl implements GetNewsService {
     public Object getPost(String link) {
         try {
             Document document = Jsoup.connect(link).timeout(5000).get();
-            Element page = document.select("div[class=sidebar-1]").first();
-            return page.html().replace("data-src", "src");
+            Element page = document.select("div[class=detail__main]").first();
+            return page.html();
         } catch (Exception e) {
             return new LinkNotFoundException();
         }
