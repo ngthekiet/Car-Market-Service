@@ -1,5 +1,6 @@
 package com.market.carmarketservice.response.auth;
 
+import com.market.carmarketservice.model.user.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,4 +15,5 @@ public class AuthenticationResponse {
 
     private Integer userID;
     private String avatar;
+    private Role role;
 }

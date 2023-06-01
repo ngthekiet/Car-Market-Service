@@ -40,7 +40,15 @@ public class ProductServiceImpl implements ProductService {
                     .name(other.getName())
                     .image(other.getImage())
                     .price(other.getPrice())
+                    .type(other.getType())
+                    .size(other.getSize())
+                    .fuel(other.getFuel())
+                    .power(other.getPower())
+                    .color(other.getColor())
+                    .description(other.getDescription())
+                    .details(other.getDetails())
                     .category(other.getCategory())
+                    .brand(other.getBrand())
                     .build();
             productRepository.save(product);
             return true;
