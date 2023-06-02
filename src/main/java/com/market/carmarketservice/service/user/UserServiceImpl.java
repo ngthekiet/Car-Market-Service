@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean updateRole(User user, int id) {
+        try {
+            Optional<User> optional = userRepository.findById(id);
+            User userOld = optional.get();
+            if (userOld.getUsername().equals("admin"))
+                return false;
+            userOld.setRole(user.getRole());
+            userRepository.save(userOld);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
     public UserResponse getUser(int id) {
         if (isUser(id)) {
             Optional<User> optional = userRepository.findById(id);
@@ -47,8 +63,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUsers() {
-        return (List<User>) userRepository.findAll();
+    public List<UserResponse> getUsers() {
+        List<User> users = userRepository.findAll();
+        List<UserResponse> result = new ArrayList<>();
+        for (User u : users) {
+            result.add(new UserResponse(u));
+        }
+        return result;
     }
 
     @Override

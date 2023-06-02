@@ -8,19 +8,21 @@ import com.market.carmarketservice.response.user.UserResponse;
 import java.util.List;
 
 public interface UserService {
-    public List<User> getUsers();
+    List<UserResponse> getUsers();
 
-    public UserResponse getUser(int id);
+    UserResponse getUser(int id);
 
-    public boolean updateUser(User user, int id);
+    boolean updateUser(User user, int id);
 
-    public boolean deleteUser(int id);
+    boolean updateRole(User user, int id);
 
-    public boolean isUser(int id);
+    boolean deleteUser(int id);
 
-    public boolean existUser(String username);
+    boolean isUser(int id);
 
-    public boolean validPassword(AuthenticationRequest request);
+    boolean existUser(String username);
 
-    public boolean changeAvatar(UserRequest avatar, int id);
+    boolean validPassword(AuthenticationRequest request);
+
+    boolean changeAvatar(UserRequest avatar, int id);
 }
