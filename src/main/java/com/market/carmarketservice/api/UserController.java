@@ -63,6 +63,13 @@ public class UserController {
         return new ResponseEntity<>(messageService.fail(), HttpStatus.BAD_REQUEST);
     }
 
+    @RequestMapping(value = "/pri/role/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateRole(@PathVariable("id") int id, @RequestBody User user) {
+        if (userService.updateRole(user, id))
+            return new ResponseEntity<>(messageService.successes(), HttpStatus.OK);
+        return new ResponseEntity<>(messageService.fail(), HttpStatus.BAD_REQUEST);
+    }
+
     @RequestMapping(value = "/pri/avatar/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> changeAvatar(@PathVariable("id") int id, @RequestBody UserRequest avatar) {
         if (userService.changeAvatar(avatar, id))
