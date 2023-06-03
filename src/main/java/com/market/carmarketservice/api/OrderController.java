@@ -1,5 +1,6 @@
 package com.market.carmarketservice.api;
 
+import com.market.carmarketservice.model.order.Order;
 import com.market.carmarketservice.request.order.OrderIDRequest;
 import com.market.carmarketservice.request.order.OrderRequest;
 import com.market.carmarketservice.service.message.MessageService;
@@ -24,6 +25,13 @@ public class OrderController {
         return new ResponseEntity<>(messageService.fail(), HttpStatus.BAD_REQUEST);
     }
 
+    @RequestMapping(value = "/orders", method = RequestMethod.GET)
+    public ResponseEntity<Object> getAllOrder() {
+        if (orderService.getAllOrder() != null)
+            return new ResponseEntity<>(orderService.getAllOrder(), HttpStatus.OK);
+        return new ResponseEntity<>(messageService.fail(), HttpStatus.BAD_REQUEST);
+    }
+
     @RequestMapping(value = "/order/{uid}", method = RequestMethod.GET)
     public ResponseEntity<Object> getOrders(@PathVariable("uid") int uid) {
         if (orderService.getOrders(uid) != null)
@@ -41,5 +49,12 @@ public class OrderController {
     @RequestMapping(value = "/cancelOrder", method = RequestMethod.PUT)
     public ResponseEntity<Object> cancelOrder(@RequestBody OrderIDRequest request) {
         return new ResponseEntity<>(orderService.cancelOrder(request.getOid()), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/status/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateStatus(@PathVariable("id") int id, @RequestBody Order order) {
+        if (orderService.updateStatus(id, order))
+            return new ResponseEntity<>(messageService.successes(), HttpStatus.OK);
+        return new ResponseEntity<>(messageService.fail(), HttpStatus.BAD_REQUEST);
     }
 }
