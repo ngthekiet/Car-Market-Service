@@ -27,13 +27,18 @@ public class OrderServiceImpl implements OrderService {
     private final OrderDetailRepository orderDetailRepository;
 
     @Override
+    public List<Order> getAllOrder() {
+        return (List<Order>) orderRepository.findAll();
+    }
+
+    @Override
     public boolean order(int uid) {
         try {
             List<Cart> carts = cartRepository.getCartsByUserId(uid);
             Optional<User> user = userRepository.findById(uid);
             var order = Order.builder()
                     .user(user.get())
-                    .status("Chờ xác nhận")
+                    .status("Confirming")
                     .createDate(new Timestamp(System.currentTimeMillis()))
                     .updateDate(new Timestamp(System.currentTimeMillis()))
                     .build();
@@ -76,8 +81,21 @@ public class OrderServiceImpl implements OrderService {
         try {
             Optional<Order> optional = orderRepository.findById(id);
             Order order = optional.get();
-            order.setStatus("Đã hủy");
+            order.setStatus("Cancelled");
             orderRepository.save(order);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateStatus(int id, Order order) {
+        try {
+            Optional<Order> optional = orderRepository.findById(id);
+            Order orderOld = optional.get();
+            orderOld.setStatus(order.getStatus());
+            orderRepository.save(orderOld);
             return true;
         } catch (Exception e) {
             return false;
