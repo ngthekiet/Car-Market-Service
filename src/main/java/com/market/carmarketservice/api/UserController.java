@@ -5,11 +5,12 @@ import com.market.carmarketservice.request.user.UserRequest;
 import com.market.carmarketservice.response.auth.AuthenticationResponse;
 import com.market.carmarketservice.request.auth.RegisterRequest;
 import com.market.carmarketservice.request.valid.Username;
-import com.market.carmarketservice.service.message.MessageService;
 import com.market.carmarketservice.service.user.AuthenticationService;
 import com.market.carmarketservice.model.user.User;
 import com.market.carmarketservice.service.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,19 +18,20 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin
 //@CrossOrigin(origins = "http://localhost:3001/")
+@PropertySource("classpath:notify.properties")
 @RequestMapping(value = "/api")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
     private final AuthenticationService authenticationService;
-    private final MessageService messageService;
+    private final Environment env;
 
     @RequestMapping(value = "/pri/users", method = RequestMethod.GET)
     public ResponseEntity<Object> getUsers() {
         try {
             return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(messageService.notFound(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(env.getProperty("NotFound"), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -37,7 +39,7 @@ public class UserController {
     public ResponseEntity<Object> getUser(@PathVariable("id") int id) {
         if (userService.getUser(id) != null)
             return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
-        return new ResponseEntity<>(messageService.notFound(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(env.getProperty("NotFound"), HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/pub/register")
@@ -46,7 +48,7 @@ public class UserController {
     ) {
         if (!userService.existUser(request.getUsername()))
             return ResponseEntity.ok(authenticationService.register(request));
-        return new ResponseEntity<>(messageService.userIsExist(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(env.getProperty("Fail"), HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/pub/authenticate")
@@ -59,29 +61,29 @@ public class UserController {
     @RequestMapping(value = "/pri/user/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateUser(@PathVariable("id") int id, @RequestBody User user) {
         if (userService.updateUser(user, id))
-            return new ResponseEntity<>(messageService.successes(), HttpStatus.OK);
-        return new ResponseEntity<>(messageService.fail(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(env.getProperty("Success"), HttpStatus.OK);
+        return new ResponseEntity<>(env.getProperty("Fail"), HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/pri/role/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateRole(@PathVariable("id") int id, @RequestBody User user) {
         if (userService.updateRole(user, id))
-            return new ResponseEntity<>(messageService.successes(), HttpStatus.OK);
-        return new ResponseEntity<>(messageService.fail(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(env.getProperty("Success"), HttpStatus.OK);
+        return new ResponseEntity<>(env.getProperty("Fail"), HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/pri/avatar/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> changeAvatar(@PathVariable("id") int id, @RequestBody UserRequest avatar) {
         if (userService.changeAvatar(avatar, id))
-            return new ResponseEntity<>(messageService.successes(), HttpStatus.OK);
-        return new ResponseEntity<>(messageService.fail(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(env.getProperty("Success"), HttpStatus.OK);
+        return new ResponseEntity<>(env.getProperty("Fail"), HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/pri/user/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteUser(@PathVariable("id") int id) {
         if (userService.deleteUser(id))
-            return new ResponseEntity<>(messageService.successes(), HttpStatus.OK);
-        return new ResponseEntity<>(messageService.fail(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(env.getProperty("Success"), HttpStatus.OK);
+        return new ResponseEntity<>(env.getProperty("Fail"), HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(value = "/pub/checkUsername", method = RequestMethod.POST)

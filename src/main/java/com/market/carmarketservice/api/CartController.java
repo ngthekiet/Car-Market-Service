@@ -4,8 +4,9 @@ import com.market.carmarketservice.request.cart.CartRequest;
 import com.market.carmarketservice.request.cart.UpdateCartRequest;
 import com.market.carmarketservice.request.order.OrderIDRequest;
 import com.market.carmarketservice.service.cart.CartService;
-import com.market.carmarketservice.service.message.MessageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,23 +15,24 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @CrossOrigin
 @RequiredArgsConstructor
+@PropertySource("classpath:notify.properties")
 @RequestMapping(value = "/api/pri")
 public class CartController {
     private final CartService cartService;
-    private final MessageService messageService;
+    private final Environment env;
 
     @RequestMapping(value = "/addToCart", method = RequestMethod.POST)
     public ResponseEntity<Object> addToCart(@RequestBody CartRequest cart) {
         if (cartService.addToCart(cart))
-            return new ResponseEntity<>(messageService.successes(), HttpStatus.OK);
-        return new ResponseEntity<>(messageService.fail(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(env.getProperty("Success"), HttpStatus.OK);
+        return new ResponseEntity<>(env.getProperty("Fail"), HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/removeFromCart/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> removeFromCart(@PathVariable("id") int id) {
         if (cartService.removeFromCart(id))
-            return new ResponseEntity<>(messageService.successes(), HttpStatus.OK);
-        return new ResponseEntity<>(messageService.fail(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(env.getProperty("Success"), HttpStatus.OK);
+        return new ResponseEntity<>(env.getProperty("Fail"), HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/getCart/{uid}", method = RequestMethod.GET)
