@@ -41,6 +41,7 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .userID(user.getId())
                 .avatar(user.getAvatar())
+                .role(user.getRole())
                 .build();
     }
 
