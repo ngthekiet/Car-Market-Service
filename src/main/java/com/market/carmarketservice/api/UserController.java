@@ -26,7 +26,7 @@ public class UserController {
     private final AuthenticationService authenticationService;
     private final Environment env;
 
-    @RequestMapping(value = "/pri/users", method = RequestMethod.GET)
+    @RequestMapping(value = "/auth/users", method = RequestMethod.GET)
     public ResponseEntity<Object> getUsers() {
         try {
             return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
@@ -35,14 +35,14 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/pri/user/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/auth/user/{id}", method = RequestMethod.GET)
     public ResponseEntity<Object> getUser(@PathVariable("id") int id) {
         if (userService.getUser(id) != null)
             return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
         return new ResponseEntity<>(env.getProperty("NotFound"), HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("/pub/register")
+    @PostMapping("/register")
     public ResponseEntity<Object> register(
             @RequestBody RegisterRequest request
     ) {
@@ -51,47 +51,47 @@ public class UserController {
         return new ResponseEntity<>(env.getProperty("Fail"), HttpStatus.BAD_REQUEST);
     }
 
-    @PostMapping("/pub/authenticate")
+    @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request
     ) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 
-    @RequestMapping(value = "/pri/user/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/auth/user/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateUser(@PathVariable("id") int id, @RequestBody User user) {
         if (userService.updateUser(user, id))
             return new ResponseEntity<>(env.getProperty("Success"), HttpStatus.OK);
         return new ResponseEntity<>(env.getProperty("Fail"), HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/pri/role/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/auth/user/{id}/role", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateRole(@PathVariable("id") int id, @RequestBody User user) {
         if (userService.updateRole(user, id))
             return new ResponseEntity<>(env.getProperty("Success"), HttpStatus.OK);
         return new ResponseEntity<>(env.getProperty("Fail"), HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/pri/avatar/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/auth/user/{id}/avatar", method = RequestMethod.PUT)
     public ResponseEntity<Object> changeAvatar(@PathVariable("id") int id, @RequestBody UserRequest avatar) {
         if (userService.changeAvatar(avatar, id))
             return new ResponseEntity<>(env.getProperty("Success"), HttpStatus.OK);
         return new ResponseEntity<>(env.getProperty("Fail"), HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/pri/user/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/auth/user/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteUser(@PathVariable("id") int id) {
         if (userService.deleteUser(id))
             return new ResponseEntity<>(env.getProperty("Success"), HttpStatus.OK);
         return new ResponseEntity<>(env.getProperty("Fail"), HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/pub/checkUsername", method = RequestMethod.POST)
+    @RequestMapping(value = "/check-username", method = RequestMethod.POST)
     public Boolean checkUsername(@RequestBody Username username) {
         return userService.existUser(username.getUsername());
     }
 
-    @RequestMapping(value = "/pub/checkPassword", method = RequestMethod.POST)
+    @RequestMapping(value = "/check-password", method = RequestMethod.POST)
     public Boolean checkPassword(@RequestBody AuthenticationRequest request) {
         return userService.validPassword(request);
     }

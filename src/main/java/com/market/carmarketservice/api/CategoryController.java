@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RequiredArgsConstructor
 @PropertySource("classpath:notify.properties")
-@RequestMapping(value = "/api/pri")
+@RequestMapping(value = "/api/auth")
 public class CategoryController {
     private final CategoryService categoryService;
     private final Environment env;
