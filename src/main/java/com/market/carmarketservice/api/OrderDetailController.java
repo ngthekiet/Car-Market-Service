@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RequiredArgsConstructor
 @PropertySource("classpath:notify.properties")
-@RequestMapping(value = "/api/pri")
+@RequestMapping(value = "/api/auth")
 public class OrderDetailController {
     private final OrderDetailService orderDetailService;
     private final Environment env;
 
-    @RequestMapping(value = "/orderDetail/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/order/{id}/detail", method = RequestMethod.GET)
     public ResponseEntity<Object> getOrderDetail(@PathVariable("id") int orderId) {
         if (orderDetailService.getOrderDetail(orderId) != null)
             return new ResponseEntity<>(orderDetailService.getOrderDetail(orderId), HttpStatus.OK);

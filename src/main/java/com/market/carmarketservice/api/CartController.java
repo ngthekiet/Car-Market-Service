@@ -16,37 +16,37 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RequiredArgsConstructor
 @PropertySource("classpath:notify.properties")
-@RequestMapping(value = "/api/pri")
+@RequestMapping(value = "/api/auth")
 public class CartController {
     private final CartService cartService;
     private final Environment env;
 
-    @RequestMapping(value = "/addToCart", method = RequestMethod.POST)
+    @RequestMapping(value = "/add-to-cart", method = RequestMethod.POST)
     public ResponseEntity<Object> addToCart(@RequestBody CartRequest cart) {
         if (cartService.addToCart(cart))
             return new ResponseEntity<>(env.getProperty("Success"), HttpStatus.OK);
         return new ResponseEntity<>(env.getProperty("Fail"), HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/removeFromCart/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/remove-from-cart/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> removeFromCart(@PathVariable("id") int id) {
         if (cartService.removeFromCart(id))
             return new ResponseEntity<>(env.getProperty("Success"), HttpStatus.OK);
         return new ResponseEntity<>(env.getProperty("Fail"), HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/getCart/{uid}", method = RequestMethod.GET)
-    public ResponseEntity<Object> getCart(@PathVariable("uid") int uid) {
+    @RequestMapping(value = "/cart/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getCart(@PathVariable("id") int uid) {
         return new ResponseEntity<>(cartService.getCart(uid), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/updateCart", method = RequestMethod.PUT)
+    @RequestMapping(value = "/cart", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateCart(@RequestBody UpdateCartRequest updateCartRequest) {
         return new ResponseEntity<>(cartService.updateCart(updateCartRequest), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/repurchase", method = RequestMethod.POST)
     public ResponseEntity<Object> repurchase(@RequestBody OrderIDRequest request) {
-        return new ResponseEntity<>(cartService.repurchase(request.getOid()), HttpStatus.OK);
+        return new ResponseEntity<>(cartService.repurchase(request.getId()), HttpStatus.OK);
     }
 }

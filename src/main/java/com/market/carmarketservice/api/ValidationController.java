@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/pub/valid")
+@RequestMapping(value = "/api/valid")
 public class ValidationController {
     private final ValidationService validationService;
 

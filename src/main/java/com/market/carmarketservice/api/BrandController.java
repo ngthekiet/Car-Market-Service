@@ -19,7 +19,7 @@ public class BrandController {
     private final BrandService brandService;
     private final Environment env;
 
-    @RequestMapping(value = "/pub/brands", method = RequestMethod.GET)
+    @RequestMapping(value = "/brands", method = RequestMethod.GET)
     public ResponseEntity<Object> getAllBrand() {
         try {
             return new ResponseEntity<>(brandService.getBrands(), HttpStatus.OK);
@@ -28,28 +28,28 @@ public class BrandController {
         }
     }
 
-    @RequestMapping(value = "/pub/brand/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/brand/{id}", method = RequestMethod.GET)
     public ResponseEntity<Object> getBrand(@PathVariable("id") int id) {
         if (brandService.getBrand(id) != null)
             return new ResponseEntity<>(brandService.getBrand(id), HttpStatus.OK);
         return new ResponseEntity<>(env.getProperty("NotFound"), HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/pri/brand", method = RequestMethod.POST)
+    @RequestMapping(value = "/auth/brand", method = RequestMethod.POST)
     public ResponseEntity<Object> createCategory(@RequestBody Brand brand) {
         if (brandService.createBrand(brand))
             return new ResponseEntity<>(env.getProperty("Success"), HttpStatus.OK);
         return new ResponseEntity<>(env.getProperty("Fail"), HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/pri/brand/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/auth/brand/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateCategory(@RequestBody Brand brand, @PathVariable("id") int id) {
         if (brandService.updateBrand(brand, id))
             return new ResponseEntity<>(env.getProperty("Success"), HttpStatus.OK);
         return new ResponseEntity<>(env.getProperty("Fail"), HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/pri/brand/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/auth/brand/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteCategory(@PathVariable("id") int id) {
         if (brandService.deleteBrand(id))
             return new ResponseEntity<>(env.getProperty("Success"), HttpStatus.OK);
